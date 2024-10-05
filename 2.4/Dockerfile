@@ -1,4 +1,4 @@
-FROM httpd:2.4.37-alpine
+FROM httpd:2.4.35-alpine
 
 # These variables are inherited from the httpd:alpine image:
 # ENV HTTPD_PREFIX /usr/local/apache2
@@ -49,7 +49,6 @@ RUN set -ex; \
     # Install openssl if we need to generate a self-signed certificate.
     apk add --no-cache openssl
 
-RUN sed -i -e 's/^#(Include .*httpd-ssl.conf)/1/' -e 's/^#(LoadModule .*mod_ssl.so)/1/' -e 's/^#(LoadModule .*mod_socache_shmcb.so)/1/' conf/httpd.conf
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 EXPOSE 80/tcp 443/tcp
 ENTRYPOINT [ "docker-entrypoint.sh" ]
